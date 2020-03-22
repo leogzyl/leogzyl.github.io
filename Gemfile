@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-gem 'rake', '~> 10.0'
+gem 'rake', '~> 12.3'
 gem 'octopress-hooks', '~> 2.2'
 gem 'octopress-date-format', '~> 2.0'
 gem 'compass', '~> 1.0.1'
