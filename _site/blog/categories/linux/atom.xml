@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: General | A Bit Curious]]></title>
-  <link href="https://github.com/leogzyl/leogzyl.github.io/blog/categories/general/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Linux | A Bit Curious]]></title>
+  <link href="https://github.com/leogzyl/leogzyl.github.io/blog/categories/linux/atom.xml" rel="self"/>
   <link href="https://github.com/leogzyl/leogzyl.github.io/"/>
-  <updated>2020-03-22T15:53:20+00:00</updated>
+  <updated>2020-03-23T07:48:46+00:00</updated>
   <id>https://github.com/leogzyl/leogzyl.github.io/</id>
   <author>
     <name><![CDATA[Leo Gzyl]]></name>
@@ -14,13 +14,13 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Annoying Beep on PyCharm + Oh My Zsh]]></title>
-    <link href="https://github.com/leogzyl/leogzyl.github.io/blog/2020/03/20/sample-post/"/>
+    <title type="html"><![CDATA[Terminal Bell in PyCharm + Oh My Zsh]]></title>
+    <link href="https://github.com/leogzyl/leogzyl.github.io/blog/2020/03/20/terminal-bell-in-pycharm-oh-my-zsh/"/>
     <updated>2020-03-20T12:10:00+00:00</updated>
-    <id>https://github.com/leogzyl/leogzyl.github.io/blog/2020/03/20/sample-post</id>
-    <content type="html"><![CDATA[<p>A few days ago I managed to solve an annoying issue with the PyCharm terminal.
+    <id>https://github.com/leogzyl/leogzyl.github.io/blog/2020/03/20/terminal-bell-in-pycharm-oh-my-zsh</id>
+    <content type="html"><![CDATA[<p>A few days ago I managed to solve an annoying issue with the PyCharm terminal. I run PyCharm on an Ubuntu virtual machine through Vagrant + X server on Windows.
 At the start and end of <em>every</em> command, there was this bell/beep/notification sound.
-I didn't usually care about it much, but when I started working remotely and spending more time using headphones for code reviews and pair programming, this became a pain.</p>
+I didn't usually care about it much since I used to keep the volume down, but I recently started working remotely and spending more time using headphones for code reviews and pair programming, so this became a pain.</p>
 
 <p>Changing the "Audible bell" setting on Pycharm did nothing. Google wasn't helpful here either, which led me to think the problem wasn't all that common.</p>
 
@@ -56,7 +56,7 @@ I didn't usually care about it much, but when I started working remotely and spe
 </span><span class='line'>/home/vagrant/.oh-my-zsh/lib/termsupport.zsh:    <span class="nb">printf</span> <span class="s1">&#39;\e]7;%s\a&#39;</span> <span class="s2">&quot;file://$HOST$URL_PATH&quot;</span>
 </span></code></pre></td></tr></table></div></figure></p>
 
-<p>There were other results for plugins and themes I wasn't using, so I went and inspect the code inside the <code>termsupport.zsh</code> file:</p>
+<p>There were other results for plugins and themes I wasn't using, so I went and inspected the code inside the <code>termsupport.zsh</code> file:</p>
 
 <p><figure class='code'><figcaption><span>termsupport.zsh (file.sh) </span></figcaption>
 <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -95,7 +95,7 @@ I didn't usually care about it much, but when I started working remotely and spe
 </span><span class='line'>&lt;p&gt;
 </span></code></pre></td></tr></table></div></figure></p>
 
-<p>Ok, so this is for setting window and tab titles on terminals, which isn't that helpful in PyCharm, and there is an environment variable to disable this plugin. But if I just export this variable on my <code>.zshrc</code> I will not have the plugin enabled outside PyCharm.</p>
+<p>Ok, so this a library for setting window and tab titles on terminals, somehow it's getting messed up in PyCharm, <em>and</em> there is an environment variable to disable it. But if I just export this variable on my <code>.zshrc</code> I will not have the library enabled outside PyCharm.</p>
 
 <p>So the solution I came up with was:</p>
 

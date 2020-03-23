@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "Annoying beep on PyCharm + Oh My Zsh"
+title: "Terminal bell in PyCharm + Oh My Zsh"
 date: 2020-03-20 12:10
 comments: true
-categories: General
+categories: [Pycharm, Terminal, Linux]
 ---
 
-A few days ago I managed to solve an annoying issue with the PyCharm terminal. 
+A few days ago I managed to solve an annoying issue with the PyCharm terminal. I run PyCharm on an Ubuntu virtual machine through Vagrant + X server on Windows.
 At the start and end of *every* command, there was this bell/beep/notification sound.
-I didn't usually care about it much, but when I started working remotely and spending more time using headphones for code reviews and pair programming, this became a pain.
+I didn't usually care about it much since I used to keep the volume down, but I recently started working remotely and spending more time using headphones for code reviews and pair programming, so this became a pain.
 
 Changing the "Audible bell" setting on Pycharm did nothing. Google wasn't helpful here either, which led me to think the problem wasn't all that common.
 
@@ -37,7 +37,7 @@ $> grep -R '\\a' ~/.oh-my-zsh/
 /home/vagrant/.oh-my-zsh/lib/termsupport.zsh:    printf '\e]7;%s\a' "file://$HOST$URL_PATH"
 {% endcodeblock %}
 
-There were other results for plugins and themes I wasn't using, so I went and inspect the code inside the `termsupport.zsh` file:
+There were other results for plugins and themes I wasn't using, so I went and inspected the code inside the `termsupport.zsh` file:
 
 {% codeblock termsupport.zsh (file.sh) %}
 # Set terminal window and tab/icon title                                                                                                         #
@@ -54,7 +54,7 @@ fi
 
 {% endcodeblock %}
 
-Ok, so this is for setting window and tab titles on terminals, which isn't that helpful in PyCharm, and there is an environment variable to disable this plugin. But if I just export this variable on my `.zshrc` I will not have the plugin enabled outside PyCharm.
+Ok, so this a library for setting window and tab titles on terminals, somehow it's getting messed up in PyCharm, *and* there is an environment variable to disable it. But if I just export this variable on my `.zshrc` I will not have the library enabled outside PyCharm.
 
 So the solution I came up with was:
 

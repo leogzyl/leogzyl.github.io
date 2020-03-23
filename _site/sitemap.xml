@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/leogzyl/leogzyl.github.io/blog/2020/03/20/sample-post/</loc>
+    <loc>https://github.com/leogzyl/leogzyl.github.io/blog/2020/03/20/terminal-bell-in-pycharm-oh-my-zsh/</loc>
     <lastmod>2020-03-20T12:10:00+00:00</lastmod>
   </url>
   <url>
@@ -11,6 +11,12 @@
     <loc>https://github.com/leogzyl/leogzyl.github.io/</loc>
   </url>
   <url>
-    <loc>https://github.com/leogzyl/leogzyl.github.io/blog/categories/general/</loc>
+    <loc>https://github.com/leogzyl/leogzyl.github.io/blog/categories/pycharm/</loc>
+  </url>
+  <url>
+    <loc>https://github.com/leogzyl/leogzyl.github.io/blog/categories/terminal/</loc>
+  </url>
+  <url>
+    <loc>https://github.com/leogzyl/leogzyl.github.io/blog/categories/linux/</loc>
   </url>
 </urlset>
