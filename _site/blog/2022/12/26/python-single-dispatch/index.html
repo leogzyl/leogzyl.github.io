@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>A Bit Curious</title>
+  <title>Pythonic Anti-IF: Single Dispatch - A Bit Curious</title>
   <meta name="author" content="Leo Gzyl">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="https://github.com/leogzyl/leogzyl.github.io/">
+  <link rel="canonical" href="https://github.com/leogzyl/leogzyl.github.io/blog/2022/12/26/python-single-dispatch/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="A Bit Curious" type="application/atom+xml">
@@ -63,15 +63,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2022/12/26/python-single-dispatch/">Pythonic Anti-IF: Single Dispatch</a></h1>
+      <h1 class="entry-title">Pythonic Anti-IF: Single Dispatch</h1>
     
     
       <p class="meta">
@@ -87,7 +84,7 @@
   </header>
 
 
-  <div class="entry-content"><p>A bunch of years ago, I became aware of the <a href="https://francescocirillo.com/products/the-anti-if-campaign#">Anti-IF campaign</a>. It was (and still is) an excellent practice in any software project.</p>
+<div class="entry-content"><p>A bunch of years ago, I became aware of the <a href="https://francescocirillo.com/products/the-anti-if-campaign#">Anti-IF campaign</a>. It was (and still is) an excellent practice in any software project.</p>
 
 <p>At the time, I was doing a lot of OOP. I recall advocates of the Anti-IF campaign claimed something along the lines of:</p>
 
@@ -276,135 +273,58 @@
 <em>I know, there's still an IF in there, but let's not be too extreme ;)</em>
 </font></p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Leo Gzyl</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2022-12-26T12:10:00+00:00'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>26</span><span class='date-suffix'>th</span>, <span class='date-year'>2022</span></span> <span class='time'>12:10 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/functional-programming/'>functional programming</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
     
-      <h1 class="entry-title"><a href="/blog/2020/03/20/terminal-bell-in-pycharm-oh-my-zsh/">Terminal Bell in PyCharm + Oh My Zsh</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2020-03-20T12:10:00+00:00'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>20</span><span class='date-suffix'>th</span>, <span class='date-year'>2020</span></span> <span class='time'>12:10 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>A few days ago I managed to solve an annoying issue with the PyCharm terminal. I run PyCharm on an Ubuntu virtual machine through Vagrant + X server on Windows.
-At the start and end of <em>every</em> command, there was this bell/beep/notification sound.
-I didn't usually care about it much since I used to keep the volume down, but I recently started working remotely and spending more time using headphones for code reviews and pair programming, so this became a pain.</p>
-
-<p>Changing the "Audible bell" setting on Pycharm did nothing. Google wasn't helpful here either, which led me to think the problem wasn't all that common.</p>
-
-<p>I started to suspect zsh/oh-my-zsh, so I opened up a bash terminal, and - surprise! - the beep was gone, so it had to be zsh related.</p>
-
-<p>I disabled the sourcing of <code>$ZSH/oh-my-zsh.sh</code> in my <code>.zshrc</code> file, and - surprise again! - no beeping.</p>
-
-<p>So the culprit was Oh My Zsh. Or, more specifically, Oh My Zsh within the PyCharm terminal. A plain Oh My Zsh console did not beep either.</p>
-
-<p>So the following thing I did was google for the "bell" character and fiddled around a bit. I opened up a bash terminal and typed:</p>
-
-<figure class='code'><figcaption><span>(bash.sh) </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">echo</span> <span class="s1">$&#39;\a&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This was the sound that was driving me nuts!</p>
-
-<p>Next, I grepped the bell character inside my <code>~/.oh-my-zsh</code> folder:</p>
-
-<figure class='code'><figcaption><span>zsh.sh </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$&gt;</span> grep -R <span class="s1">&#39;\\a&#39;</span> ~/.oh-my-zsh/
-</span><span class='line'>/home/vagrant/.oh-my-zsh/lib/termsupport.zsh:      print -Pn <span class="s2">&quot;\e]2;$2:q\a&quot;</span> <span class="c"># set window name</span>
-</span><span class='line'>/home/vagrant/.oh-my-zsh/lib/termsupport.zsh:      print -Pn <span class="s2">&quot;\e]1;$1:q\a&quot;</span> <span class="c"># set tab name</span>
-</span><span class='line'>/home/vagrant/.oh-my-zsh/lib/termsupport.zsh:        print -Pn <span class="s2">&quot;\e]2;$2:q\a&quot;</span> <span class="c"># set window name</span>
-</span><span class='line'>/home/vagrant/.oh-my-zsh/lib/termsupport.zsh:        print -Pn <span class="s2">&quot;\e]1;$1:q\a&quot;</span> <span class="c"># set tab name</span>
-</span><span class='line'>/home/vagrant/.oh-my-zsh/lib/termsupport.zsh:    <span class="nb">printf</span> <span class="s1">&#39;\e]7;%s\a&#39;</span> <span class="s2">&quot;file://$HOST$URL_PATH&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>There were other results for plugins and themes I wasn't using, so I went and inspected the code inside the <code>termsupport.zsh</code> file:</p>
-
-<figure class='code'><figcaption><span>termsupport.zsh (file.sh) </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># Set terminal window and tab/icon title                                                                                                         #</span>
-</span><span class='line'><span class="c"># usage: title short_tab_title [long_window_title]</span>
-</span><span class='line'><span class="c">#</span>
-</span><span class='line'>
-</span><span class='line'>...
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="o">[[</span> <span class="s2">&quot;$DISABLE_AUTO_TITLE&quot;</span> <span class="o">==</span> <span class="nb">true</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
-</span><span class='line'>  <span class="k">return</span>
-</span><span class='line'><span class="k">fi</span>
-</span><span class='line'>
-</span><span class='line'>...
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Ok, so this a library for setting window and tab titles on terminals, somehow it's getting messed up in PyCharm, <em>and</em> there is an environment variable to disable it. But if I just export this variable on my <code>.zshrc</code> I will not have the library enabled outside PyCharm.</p>
-
-<p>So the solution I came up with was:</p>
-
-<figure class='code'><figcaption><span>~/.zshrc (file.sh) </span></figcaption>
-<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="k">if</span> <span class="o">[[</span> -n <span class="s2">&quot;$INSIDE_PYCHARM&quot;</span>  <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
-</span><span class='line'>  <span class="nb">export </span><span class="nv">DISABLE_AUTO_TITLE</span><span class="o">=</span><span class="nb">true  </span>
-</span><span class='line'><span class="k">fi</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Then on my PyCharm terminal settings for the project:</p>
-
-<p><img src="/assets/images/pycharm-term.png" alt="image" /></p>
-
-<p><em>Viola!</em></p>
-
-<p>This felt so good I just needed to share. I hope someone finds this useful sometime.</p>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="https://github.com/leogzyl/leogzyl.github.io/blog/2022/12/26/python-single-dispatch/" data-via="" data-counturl="https://github.com/leogzyl/leogzyl.github.io/blog/2022/12/26/python-single-dispatch/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2020/03/20/terminal-bell-in-pycharm-oh-my-zsh/" title="Previous Post: Terminal bell in PyCharm + Oh My Zsh">&laquo; Terminal bell in PyCharm + Oh My Zsh</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
   
     <section>
@@ -458,6 +378,7 @@ I didn't usually care about it much since I used to keep the volume down, but I 
   
 </aside>
 
+
     </div>
   </div>
   <footer role="contentinfo"><p>
@@ -472,7 +393,10 @@ I didn't usually care about it much since I used to keep the volume down, but I 
       var disqus_shortname = 'a-bit-curious';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'https://github.com/leogzyl/leogzyl.github.io/blog/2022/12/26/python-single-dispatch/';
+        var disqus_url = 'https://github.com/leogzyl/leogzyl.github.io/blog/2022/12/26/python-single-dispatch/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
