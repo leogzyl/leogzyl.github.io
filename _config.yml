@@ -1,4 +1,4 @@
-subtitle: Ramblings about software development, programming languages, Linux 
+subtitle: Ramblings about programming, Linux & Life
 description: My dev blog
 url: https://github.com/leogzyl/leogzyl.github.io
 
@@ -48,10 +48,10 @@ default_asides:
 # page_asides:
 
 github_user: leogzyl
-github_repo_count: 0
+github_repo_count: 10
 github_skip_forks: true
 github_show_profile_link: true
 disqus_show_comment_count: false
 twitter_tweet_button: true
 disqus_short_name: a-bit-curious
-twitter_user:
+twitter_user: leogzyl
