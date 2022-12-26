@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Functional Programming | A Bit Curious]]></title>
+  <link href="https://github.com/leogzyl/leogzyl.github.io/blog/categories/functional-programming/atom.xml" rel="self"/>
+  <link href="https://github.com/leogzyl/leogzyl.github.io/"/>
+  <updated>2022-12-26T15:56:28+00:00</updated>
+  <id>https://github.com/leogzyl/leogzyl.github.io/</id>
+  <author>
+    <name><![CDATA[Leo Gzyl]]></name>
+    <email><![CDATA[leogzyl@yahoo.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Pythonic Anti-IF: Single Dispatch]]></title>
+    <link href="https://github.com/leogzyl/leogzyl.github.io/blog/2022/12/26/python-single-dispatch/"/>
+    <updated>2022-12-26T12:10:00+00:00</updated>
+    <id>https://github.com/leogzyl/leogzyl.github.io/blog/2022/12/26/python-single-dispatch</id>
+    <content type="html"><![CDATA[<p>A bunch of years ago, I became aware of the <a href="https://francescocirillo.com/products/the-anti-if-campaign#">Anti-IF campaign</a>. It was (and still is) an excellent practice in any software project.</p>
+
+<p>At the time, I was doing a lot of OOP. I recall advocates of the Anti-IF campaign claimed something along the lines of:</p>
+
+<p><em>"Every time you use an IF statement, you miss an opportunity to use polymorphism".</em></p>
+
+<p>It seemed a little extreme to apply this when dealing with <em>any</em> IF statement, though.</p>
+
+<p>Recently I was working on a Python library for document analysis where I wanted to make the user interface as simple as possible. After some configuration, the end-user would call a single method with a single parameter (a document to be analyzed), the type of the parameter being:</p>
+
+<ul>
+<li><code>str</code>: a path to a document (local file or URI)</li>
+<li><code>pathlib.Path</code>: a path to a local file</li>
+<li><code>bytes</code>: a stream of bytes representing the document</li>
+<li><code>BytesIO</code>: In memory buffer with contents representing the document</li>
+<li>a file-like object resulting from <code>open</code>ing the document in binary mode</li>
+</ul>
+
+
+<p>The actual analysis was performed by backend providers that had APIs for either binary data or URLs, so I needed to accommodate the above into one of those two categories.</p>
+
+<p>A first short-lived implementation started out as something like this (uglier code omitted):</p>
+
+<pre><code class="python ">from abc import ABC, abstractmethod
+from pathlib import Path
+from typing import BinaryIO
+
+from utils import is_local_file
+
+class AbstractDocumentAnalyzer(ABC):
+
+    @abstractmethod
+    def _from_url(self, document: str):
+        """ Provide results when document is a URL """
+        pass
+
+    @abstractmethod
+    def _from_bytes(self, document: BinaryIO):
+        """ Provide results when document is binary data """
+        pass
+
+    def analize_document(self, source: Any):
+        if isinstance(source, str):
+            if is_local_file(str):
+                ... # open the file and call self._from_bytes
+            else:
+                ...  # call self._from_url
+
+        elif isinstance(source, Path):
+            ...  # open the file and call self._from_bytes
+        elif isinstance(source, bytes):
+            ... # call self._from_bytes
+
+        ...
+
+        else:
+            raise ValueError(f"Don't know how to handle {type(source)} :(")
+</code></pre>
+
+<p>As the IF's quickly popped up, I could almost hear Raymond Hettinger:</p>
+
+<p><img src="/assets/images/better-way.png" alt="image" /></p>
+
+<p>Luckily for us, Python provides a way to build polymorphic functions that dispatch <a href="https://docs.python.org/3/library/functools.html#functools.singledispatch">on the type of the first argument</a> (<a href="https://docs.python.org/3/library/functools.html#functools.singledispatchmethod">or second, for methods</a>).</p>
+
+<p>This allows us to cleanly separate each case into its own handler method:</p>
+
+<pre><code class="python">from abc import ABC, abstractmethod
+from functools import singledispatchmethod
+from pathlib import Path
+from typing import BinaryIO
+
+from src.utils import is_local_file
+
+class AbstractDocumentAnalyzer(ABC):
+
+    @abstractmethod
+    def _from_url(self, document: str):
+        """ Provide results when document is a URL """
+        pass
+
+    @abstractmethod
+    def _from_bytes(self, document: BinaryIO):
+        """ Provide results when document is binary data """
+        pass
+
+    @singledispatchmethod
+    def analize_document(self, source: Any):
+        raise ValueError(f"Don't know how to handle {type(source)} :(")
+
+    @analize_document.register
+    def _(self, source: Path):
+        with open(source, 'rb') as file:
+            return self._from_bytes(file)
+
+    @analize_document.register
+    def _(self, source: str):
+        return self.analize_document(Path(source)) 
+            if is_local_file(source) 
+            else self._from_url(source)
+
+    @analize_document.register
+    def _(self, source: bytes | BufferedReader | BytesIO):
+        return self._from_bytes(source)
+</code></pre>
+
+<p>Now that's a lot cleaner, isn't it?!</p>
+
+<p>Notice how in the first implementation we <code>open</code>ed the file at two places. The improved code allows for some level of reuse (the <code>str</code> handler calls the <code>Path</code> handler).</p>
+
+<p>Notice also that you can use union types for dispatching only after Python 3.11. For earlier versions, you must create a handler for each type.</p>
+
+<p><font size=2>
+<em>I know, there's still an IF in there, but let's not be too extreme ;)</em>
+</font></p>
+]]></content>
+  </entry>
+  
+</feed>
