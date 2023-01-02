@@ -43,6 +43,12 @@ default_asides:
   - asides/pinboard.html
   - asides/googleplus.html
 
+exclude:
+- Gemfile*
+- Makefile
+- Rakefile
+- README.md
+
 # blog_index_asides:
 # post_asides:
 # page_asides:
