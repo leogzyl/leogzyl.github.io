@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Pythonic Anti-IF: Single Dispatch"
+# author: leo
 date: 2022-12-26 12:10
 comments: true
 categories: [Python, Functional Programming]
@@ -66,7 +67,7 @@ class AbstractDocumentAnalyzer(ABC):
 
 As the IF's quickly popped up, I could almost hear Raymond Hettinger:
 
-![image](/assets/images/better-way.png)
+![image](../assets/images/better-way.png)
 
 Luckily for us, Python provides a way to build polymorphic functions that dispatch [on the type of the first argument](https://docs.python.org/3/library/functools.html#functools.singledispatch) ([or second, for methods](https://docs.python.org/3/library/functools.html#functools.singledispatchmethod)).
 
@@ -119,6 +120,4 @@ Notice how in the first implementation we `open`ed the file at two places. The i
 
 Notice also that you can use union types for dispatching only after Python 3.11. For earlier versions, you must create a handler for each type.
 
-<font size=2>
 _I know, there's still an IF in there, but let's not be too extreme ;)_
-</font>

@@ -1,63 +1,63 @@
-subtitle: Ramblings about programming, Linux & Life
-description: My dev blog
-url: https://github.com/leogzyl/leogzyl.github.io
+# Site
+name: "A Bit Curious"
+title: "My dev blog"
+description: "Ramblings about programming, Linux & Life"
+logo: 'assets/images/logo.png'
+favicon: 'assets/images/logo.png'
+baseurl: ""
+google_analytics: 'UA-46278016-1'
+disqus: 'leogzyl.github.com'
+# mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
+include: ["_pages"]
+permalink: /:title/
 
-title: A Bit Curious
-author: Leo Gzyl
-email: leogzyl@yahoo.com
-
-subscribe_rss: /atom.xml
-simple_search: https://www.google.com/search
-date_format: "ordinal"
-
-root: /
-permalink: /blog/:year/:month/:day/:title/
-
-
-plugins: _plugins
-sass_dir: _sass
-code_dir: downloads/code
-category_dir: blog/categories
-
-
-markdown: rdiscount
-rdiscount:
-  extensions:
-    - autolink
-    - footnotes
+# Authors
+authors:
+  leo:
+    name: Leo Gzyl
+    display_name: Leo Gzyl
+    gravatar: 97368eb779dfb460854b2c8a3a9e88fe
+    email: leogzyl@yahoo.com
+    # web: https://www.wowthemes.net
+    twitter: https://twitter.com/leogzyl
+    # description: "Author of Mediumish, a Bootstrap Medium styled template available for WordPress, HTML, Ghost and Jekyll. You are currently previewing Jekyll template demo."
+  
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-archives
     
+# Archives
+jekyll-archives:
+  enabled:
+    - categories
+  layout: archive
+  permalinks:
+    category: '/category/:name/'
+    
+# Pagination 
+paginate: 6
+paginate_path: /page:num/
+    
+# Other
+markdown: kramdown
 
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
 
-highlighter: pygments
-paginate_path: "posts/:num"
-excerpt_link: "Read on &rarr;"
-excerpt_separator: "<!--more-->"
-recent_posts: 5
-paginate: 10
-titlecase: true
+# Adsense (change to "enabled" to activate, also your client id and ad slot. Create a new ad unit from your Adsense account to get the slot.)
+# adsense: "disabled"
+# adsense-data-ad-client: "ca-pub-3412143450191416"
+# adsense-data-ad-slot: "1363087678"
 
-default_asides:
-  - asides/recent_posts.html
-  - asides/github.html
-  - asides/delicious.html
-  - asides/pinboard.html
-  - asides/googleplus.html
+# Lazy Images ("enabled" or "disabled")
+lazyimages: "enabled"
 
-exclude:
-- Gemfile*
-- Makefile
-- Rakefile
-- README.md
-
-# blog_index_asides:
-# post_asides:
-# page_asides:
-
-github_user: leogzyl
-github_repo_count: 10
-github_skip_forks: true
-github_show_profile_link: true
-disqus_show_comment_count: false
-twitter_tweet_button: true
-disqus_short_name: a-bit-curious
-twitter_user: leogzyl
+exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock, Makefile]
