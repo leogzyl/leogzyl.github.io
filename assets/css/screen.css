@@ -305,7 +305,8 @@ span.post-read-more a:hover {
 }
 
 .mainheading h1.sitetitle {
-    font-family: Righteous;
+    font-family: Iosevka;
+    font-weight: 700;
 }
 
 .mainheading h1.posttitle {
@@ -898,4 +899,22 @@ iframe {
 .lazyimg[data-srcset] {
     opacity: 0;
     transition: opacity .25s;
+}
+
+/* Customizations */
+
+.rouge-code * {
+    font-family: Iosevka;
+}
+
+.posttitle {
+    font-family: Iosevka;
+}
+
+.article-post {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.mainheading * {
+    font-family: 'Source Sans Pro', sans-serif;
 }

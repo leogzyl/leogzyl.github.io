@@ -2,6 +2,7 @@
 layout: post
 title: "Terminal bell in PyCharm + Oh My Zsh"
 # author: leo
+image: https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/HP-HP2624B-Terminal_05.jpg/512px-HP-HP2624B-Terminal_05.jpg
 date: 2020-03-20 12:10
 comments: true
 categories: [Pycharm, Terminal, Linux]
@@ -67,7 +68,7 @@ fi
 
 Then on my PyCharm terminal settings for the project:
 
-![image](../assets/images/pycharm-term.png)
+![image]({{ site.baseurl }}/assets/images/pycharm-term.png)
 
 *Viola!*
 

@@ -2,8 +2,10 @@
 layout: post
 title: "Pythonic Anti-IF: Single Dispatch"
 # author: leo
+image: https://upload.wikimedia.org/wikipedia/commons/4/4d/IF-THEN-ELSE-END_flowchart.svg
 date: 2022-12-26 12:10
 comments: true
+featured: true
 categories: [Python, Functional Programming]
 ---
 
@@ -67,7 +69,7 @@ class AbstractDocumentAnalyzer(ABC):
 
 As the IF's quickly popped up, I could almost hear Raymond Hettinger:
 
-![image](../assets/images/better-way.png)
+![image]({{ site.baseurl }}/assets/images/better-way.png)
 
 Luckily for us, Python provides a way to build polymorphic functions that dispatch [on the type of the first argument](https://docs.python.org/3/library/functools.html#functools.singledispatch) ([or second, for methods](https://docs.python.org/3/library/functools.html#functools.singledispatchmethod)).
 

@@ -1,7 +1,7 @@
 
 
 build:
-	bundle exec jekyll build -d docs
+	JEKYLL_ENV=production bundle exec jekyll build -d docs
 
 serve:
-	bundle exec jekyll serve --host 0.0.0.0
+	JEKYLL_ENV=dev bundle exec jekyll serve --host 0.0.0.0
