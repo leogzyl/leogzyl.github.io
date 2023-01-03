@@ -6,4 +6,4 @@ build: install
 	bundle exec jekyll build -d docs
 
 serve: install
-	bundle exec jekyll serve -d docs
+	bundle exec jekyll serve -d _drafts
