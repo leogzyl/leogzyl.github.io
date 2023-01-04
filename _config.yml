@@ -2,8 +2,8 @@
 name: "A Bit Curious"
 title: "My dev blog"
 description: "Ramblings about programming, Linux & Life"
-logo: 'assets/images/logo.png'
-favicon: 'assets/images/logo.png'
+logo: 'assets/images/Yin_and_Yang_symbol.png'
+favicon: 'assets/images/favicon.ico'
 baseurl: ""
 google_analytics: 'UA-46278016-1'
 disqus: 'leogzyl.github.com'
