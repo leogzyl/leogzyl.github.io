@@ -1,63 +1,54 @@
-# Site
-name: "A Bit Curious"
-title: "My dev blog"
-description: "Ramblings about programming, Linux & Life"
-logo: 'assets/images/Yin_and_Yang_symbol.png'
-favicon: 'assets/images/favicon.ico'
-baseurl: ""
-google_analytics: 'UA-46278016-1'
-disqus: 'leogzyl.github.com'
-# mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
-include: ["_pages"]
-permalink: /:title/
+title: A Bit Curious
+author: Leo Gzyl
+url: https://leogzyl.github.io/
+description: >
+  Ramblings about programming, Linux & Life
 
-# Authors
-authors:
-  leo:
-    name: Leo Gzyl
-    display_name: Leo Gzyl
-    gravatar: 97368eb779dfb460854b2c8a3a9e88fe
-    email: leogzyl@yahoo.com
-    # web: https://www.wowthemes.net
-    twitter: https://twitter.com/leogzyl
-    # description: "Author of Mediumish, a Bootstrap Medium styled template available for WordPress, HTML, Ghost and Jekyll. You are currently previewing Jekyll template demo."
-  
-# Plugins
-plugins:
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-archives
-    
-# Archives
-jekyll-archives:
-  enabled:
-    - categories
-  layout: archive
-  permalinks:
-    category: '/category/:name/'
-    
-# Pagination 
-paginate: 6
-paginate_path: /page:num/
-    
-# Other
-markdown: kramdown
+permalink: /:slug
+
+favicon: "./logo.png" 
+
+twitter:
+    username: leogzyl 
+    card: summary_large_image
+
+#theme: moonwalk # if you are using GitHub Pages, change it to remote_theme: abhinavs/moonwalk
+# remote_theme: abhinavs/moonwalk
+
+theme_config:
+  appearance: "dark" # can be "light", "dark" or "auto"
+  appearance_toggle: true # if appearance can be switched by user
+  back_home_text: "home.." # customize text for homepage link in post layout
+  date_format: "%Y-%m-%d" # customize how date is formatted
+  show_description: true # show blog description
+  show_navbar: true # show horizontal navbar
+  show_footer: true # show footer links in home page,add in _data/home.yml
+  show_copyright: true # show copyright notice in footer
+  # following keys are using to create home layout
+  show_projects: false # show projects as cards, add in _data/home.yml
+  show_blog: true # show blog posts added in _posts
+  show_old_projects: false # show old projects as cards, add in _data/home.yml
+  show_misc_list: false # show generic vertical list for misc details, add _data/home.yml
+  show_reading_time: true # show number of words and reading time in the blog posts
+  show_tags: true # show tags in a blog posts
+  # options for "home" page
+  home:
+    title_projects: Portfolio
+    title_misc_list: Details
+    title_blog: Blog
+    title_old_projects: Old Projects
+
+soopr:
+  publish_token: "" # sign up at https://www.soopr.co to get your publish token and personalize share and reaction options
 
 kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    block:
-      line_numbers: true
+    syntax_highlighter_opts:
+        block:
+            line_numbers: true
 
-# Adsense (change to "enabled" to activate, also your client id and ad slot. Create a new ad unit from your Adsense account to get the slot.)
-# adsense: "disabled"
-# adsense-data-ad-client: "ca-pub-3412143450191416"
-# adsense-data-ad-slot: "1363087678"
+sass:
+  style: :compressed
 
-# Lazy Images ("enabled" or "disabled")
-lazyimages: "enabled"
-
-exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock, Makefile]
+plugins:
+  - jekyll-feed
+  - jekyll-soopr-seo-tag

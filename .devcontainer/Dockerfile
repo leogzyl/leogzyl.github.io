@@ -1,6 +1,6 @@
 FROM ruby:2.7.2
 
-COPY ["Gemfile*", "/tmp/"]
+COPY ["Gemfile*", "*.gemspec", "/tmp/"]
 
 RUN gem update --system && \
     bundle install --frozen --gemfile=/tmp/Gemfile

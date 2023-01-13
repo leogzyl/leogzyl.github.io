@@ -6,7 +6,7 @@ image: https://upload.wikimedia.org/wikipedia/commons/4/4d/IF-THEN-ELSE-END_flow
 date: 2022-12-26 12:10
 comments: true
 featured: true
-categories: [Python, Functional Programming]
+categories: [Python, Functional Programming, Anti-IF]
 ---
 
 A bunch of years ago, I became aware of the [Anti-IF campaign](https://francescocirillo.com/products/the-anti-if-campaign#). It was (and still is) an excellent practice in any software project.
@@ -14,7 +14,7 @@ A bunch of years ago, I became aware of the [Anti-IF campaign](https://francesco
 At the time, I was doing a lot of OOP. I recall advocates of the Anti-IF campaign claimed something along the lines of: 
 
 
-_"Every time you use an IF statement, you miss an opportunity to use polymorphism"._
+>> "Every time you write an IF statement, you miss an opportunity to use polymorphism".
 
 It seemed a little extreme to apply this when dealing with _any_ IF statement, though.
 
