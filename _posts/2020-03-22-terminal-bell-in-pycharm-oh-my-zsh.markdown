@@ -20,26 +20,26 @@ So the culprit was Oh My Zsh. Or, more specifically, Oh My Zsh within the PyChar
 
 So the following thing I did was google for the "bell" character and fiddled around a bit. I opened up a bash terminal and typed:
 
-{% codeblock (bash.sh) %}
+{% highlight bash %}
 echo $'\a'
-{% endcodeblock%}
+{% endhighlight %}
 
 This was the sound that was driving me nuts!
 
 Next, I grepped the bell character inside my `~/.oh-my-zsh` folder:
 
-{% codeblock zsh.sh %}
+{% highlight bash %}
 $> grep -R '\\a' ~/.oh-my-zsh/
 /home/vagrant/.oh-my-zsh/lib/termsupport.zsh:      print -Pn "\e]2;$2:q\a" # set window name
 /home/vagrant/.oh-my-zsh/lib/termsupport.zsh:      print -Pn "\e]1;$1:q\a" # set tab name
 /home/vagrant/.oh-my-zsh/lib/termsupport.zsh:        print -Pn "\e]2;$2:q\a" # set window name
 /home/vagrant/.oh-my-zsh/lib/termsupport.zsh:        print -Pn "\e]1;$1:q\a" # set tab name
 /home/vagrant/.oh-my-zsh/lib/termsupport.zsh:    printf '\e]7;%s\a' "file://$HOST$URL_PATH"
-{% endcodeblock %}
+{% endhighlight %}
 
 There were other results for plugins and themes I wasn't using, so I went and inspected the code inside the `termsupport.zsh` file:
 
-{% codeblock termsupport.zsh (file.sh) %}
+{% highlight bash %}
 # Set terminal window and tab/icon title                                                                                                         #
 # usage: title short_tab_title [long_window_title]
 #
@@ -52,17 +52,18 @@ fi
 
 ...
 
-{% endcodeblock %}
+{% endhighlight %}
 
 Ok, so this a library for setting window and tab titles on terminals, somehow it's getting messed up in PyCharm, *and* there is an environment variable to disable it. But if I just export this variable on my `.zshrc` I will not have the library enabled outside PyCharm.
 
 So the solution I came up with was:
 
-{% codeblock ~/.zshrc (file.sh) %}
+{% highlight bash %}
 if [[ -n "$INSIDE_PYCHARM"  ]]; then
   export DISABLE_AUTO_TITLE=true  
 fi
-{% endcodeblock %}
+{% endhighlight %}
+
 
 Then on my PyCharm terminal settings for the project:
 

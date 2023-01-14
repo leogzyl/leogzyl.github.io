@@ -1,9 +1,5 @@
-
-install:
-	bundle install
-
-build: install
+build:
 	RUBYOPT='-W0' bundle exec jekyll build -d docs
 
-serve: install
+serve:
 	RUBYOPT='-W0' bundle exec jekyll serve -d _drafts
