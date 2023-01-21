@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://github.com/leogzyl/leogzyl.github.io/blog/2023/01/21/dataclass-auto-ids/</loc>
+<lastmod>2023-01-21T17:40:00+00:00</lastmod>
+</url>
+<url>
 <loc>https://github.com/leogzyl/leogzyl.github.io/blog/2022/12/26/python-single-dispatch/</loc>
 <lastmod>2022-12-26T12:10:00+00:00</lastmod>
 </url>
@@ -28,5 +32,20 @@
 </url>
 <url>
 <loc>https://github.com/leogzyl/leogzyl.github.io/blog/categories/functional-programming/</loc>
+</url>
+<url>
+<loc>https://github.com/leogzyl/leogzyl.github.io/blog/categories/dataclass/</loc>
+</url>
+<url>
+<loc>https://github.com/leogzyl/leogzyl.github.io/blog/categories/dataclasses/</loc>
+</url>
+<url>
+<loc>https://github.com/leogzyl/leogzyl.github.io/blog/categories/refactoring/</loc>
+</url>
+<url>
+<loc>https://github.com/leogzyl/leogzyl.github.io/blog/categories/context-manager/</loc>
+</url>
+<url>
+<loc>https://github.com/leogzyl/leogzyl.github.io/blog/categories/contextlib/</loc>
 </url>
 </urlset>

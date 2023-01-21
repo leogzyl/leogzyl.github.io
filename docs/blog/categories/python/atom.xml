@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | A Bit Curious]]></title>
   <link href="https://github.com/leogzyl/leogzyl.github.io/blog/categories/python/atom.xml" rel="self"/>
   <link href="https://github.com/leogzyl/leogzyl.github.io/"/>
-  <updated>2023-01-14T00:01:25+00:00</updated>
+  <updated>2023-01-21T18:58:17+00:00</updated>
   <id>https://github.com/leogzyl/leogzyl.github.io/</id>
   <author>
     <name><![CDATA[Leo Gzyl]]></name>
@@ -12,6 +12,139 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Dataclass Auto IDs]]></title>
+    <link href="https://github.com/leogzyl/leogzyl.github.io/blog/2023/01/21/dataclass-auto-ids/"/>
+    <updated>2023-01-21T17:40:00+00:00</updated>
+    <id>https://github.com/leogzyl/leogzyl.github.io/blog/2023/01/21/dataclass-auto-ids</id>
+    <content type="html"><![CDATA[<p>Imagine you are working on a project and have some code like this:</p>
+
+<pre><code class="python">@dataclass
+class Foo:
+    bar: int
+    baz: str
+...
+
+for ...
+    ...
+    foo = Foo(bar=the_bar, baz=the_baz)
+    ...
+# do something with the foo's 
+</code></pre>
+
+<p>Now you receive the requirement to assign serial ids to dataclasses being created (<code>Foo</code>s and others), for reference/ordering, etc.</p>
+
+<p>It's worth mentioning that the objects are not going to be persisted, so as long as IDs are sequential per invocation/run/session, all is well.</p>
+
+<p>After some digging around in the <code>itertools</code> module, you settle for something like this:</p>
+
+<pre><code class="python">@dataclass
+class Foo:
+    id: int
+    bar: int
+    baz: str
+</code></pre>
+
+
+
+<pre><code class="python">from itertools import count
+
+ids = count(1)
+
+for ...
+    ...
+    foo = Foo(id=next(ids), bar=the_bar, baz=the_baz)
+    ...
+</code></pre>
+
+<p>This works like a charm, except for the fact that you end up repeating the same code everywhere <code>Foo</code>s and other dataclasses are being instantiated.</p>
+
+<p>Time to refactor!</p>
+
+<p>The obvious place to move this is inside the dataclass itself, something like this:</p>
+
+<pre><code class="python">from dataclasses import dataclass, field
+from itertools import count
+
+
+@dataclass
+class AutoId():
+    id: int = field(init=False)
+
+    def __post_init__(self):
+        if not getattr(self.__class__, "_ids", None):
+            self.__class__._ids = count(1)
+        self.id = next(self._ids)
+
+@dataclass
+class Foo(AutoId):
+    bar: int
+    baz: str
+</code></pre>
+
+<p>This encapsulates the counter logic in a dataclass that you can mix in with your existing ones. Each inheriting dataclass gets its own independent counter and <code>id</code> field. Nice!</p>
+
+<p>But there's one more thing that doesn't quite work with this approach. The generated ids for each class will keep increasing for the duration of the python process, you need some sort of scope...</p>
+
+<p>Scope? that's what context managers are for. Let's try that:</p>
+
+<pre><code class="python">from contextlib import contextmanager
+from dataclasses import dataclass, field
+from itertools import count
+
+
+@dataclass
+class AutoId():
+    id: int = field(init=False)
+
+    @classmethod
+    @contextmanager
+    def auto_ids(cls):
+        try:
+            cls._ids = count(1)
+            yield
+        finally:
+            del cls._ids
+
+    def __post_init__(self):
+        if getattr(self.__class__, "_ids", None):
+            self.id = next(self._ids)
+        else:
+            self.id = None
+
+@dataclass
+class Foo(AutoId):
+    bar: int
+    baz: str
+</code></pre>
+
+<p>This would be used in the wild like so:</p>
+
+<pre><code class="python">with Foo.auto_ids():
+    f1 = Foo(bar=1, baz="baz")
+    f2 = Foo(bar=2, baz="baz")
+
+...
+
+with Foo.auto_ids():
+    f3 = Foo(bar=1, baz="baz")
+    f4 = Foo(bar=2, baz="baz")
+
+print(f1, f2, f3, f4)
+</code></pre>
+
+<p>Output:
+<div class="highlight"><pre><code class="language-text" data-lang="text">Foo(id=1, bar=1, baz=&#39;baz&#39;)
+Foo(id=2, bar=2, baz=&#39;baz&#39;)
+Foo(id=1, bar=1, baz=&#39;baz&#39;)
+Foo(id=2, bar=2, baz=&#39;baz&#39;)</code></pre></div></p>
+
+<p>You could save a couple of parenthesis by making <code>auto_ids</code> a class property, but keep in mind that will <a href="https://docs.python.org/3.11/library/functions.html#classmethod">no longer work after python 3.11</a></p>
+
+<p>Granted, we ended up with a bit more complexity, but it's neatly hidden away in the core of your domain, giving you a clean API to work with.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Pythonic Anti-IF: Single Dispatch]]></title>
