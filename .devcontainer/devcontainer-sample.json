@@ -11,6 +11,9 @@
 			"USER_GID": "100"
 		}
 	},
+	"containerEnv": {
+		"SOOPR_PT_TOKEN": ""
+	},
 	// Fixes podman permissions
 	"runArgs": [
 		"--userns=keep-id"
