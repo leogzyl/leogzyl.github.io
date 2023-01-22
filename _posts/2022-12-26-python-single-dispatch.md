@@ -30,7 +30,7 @@ The actual analysis was performed by backend providers that had APIs for either 
 
 A first short-lived implementation started out as something like this (uglier code omitted):
 
-```python 
+{% highlight python linenos=1 %}
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import BinaryIO
@@ -65,7 +65,7 @@ class AbstractDocumentAnalyzer(ABC):
         
         else:
             raise ValueError(f"Don't know how to handle {type(source)} :(")
-```
+{% endhighlight %}
 
 As the IF's quickly popped up, I could almost hear Raymond Hettinger:
 
@@ -75,7 +75,7 @@ Luckily for us, Python provides a way to build polymorphic functions that dispat
 
 This allows us to cleanly separate each case into its own handler method:
 
-```python
+{% highlight python linenos=1 %}
 from abc import ABC, abstractmethod
 from functools import singledispatchmethod
 from pathlib import Path
@@ -113,7 +113,7 @@ class AbstractDocumentAnalyzer(ABC):
     @analize_document.register
     def _(self, source: bytes | BufferedReader | BytesIO):
         return self._from_bytes(source)
-```
+{% endhighlight %}
 
 Now that's a lot cleaner, isn't it?!
 

@@ -3,7 +3,8 @@ FROM ruby:2.7.2
 COPY ["Gemfile*", "*.gemspec", "/tmp/"]
 
 RUN gem update --system && \
-    bundle install --frozen --gemfile=/tmp/Gemfile
+    bundle config set --local frozen 'true' && \
+    bundle install --gemfile=/tmp/Gemfile
 
 ARG USERNAME
 ARG USER_UID

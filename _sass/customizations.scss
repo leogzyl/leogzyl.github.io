@@ -1,0 +1,31 @@
+figure.highlight pre code {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+}
+
+figure.highlight {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+figure.highlight table th,
+td {
+    border: thin solid #1A1F35;
+}
+
+figure.highlight td.gutter {
+    text-align: right;
+    color: #f2f0ec4f;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+figure.highlight td.code {
+    border: none
+}
+
+table.rouge-table {
+    border: none
+}

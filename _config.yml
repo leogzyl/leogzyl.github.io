@@ -12,7 +12,15 @@ twitter:
     username: leogzyl 
     card: summary_large_image
 
-#theme: moonwalk # if you are using GitHub Pages, change it to remote_theme: abhinavs/moonwalk
+markdown: kramdown
+
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+theme: moonwalk # if you are using GitHub Pages, change it to remote_theme: abhinavs/moonwalk
 # remote_theme: abhinavs/moonwalk
 
 theme_config:
