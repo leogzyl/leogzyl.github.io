@@ -46,8 +46,9 @@ theme_config:
     title_blog: Blog
     title_old_projects: Old Projects
 
-soopr:
-  publish_token: "" # sign up at https://www.soopr.co to get your publish token and personalize share and reaction options
+# soopr token handled by env var plugin
+# soopr:
+#   publish_token: ""
 
 sass:
   style: :compressed
@@ -55,3 +56,8 @@ sass:
 plugins:
   - jekyll-feed
   - jekyll-soopr-seo-tag
+
+disqus:
+  # Leave shortname blank to disable comments site-wide.
+  # Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
+  shortname: a-bit-curious

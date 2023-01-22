@@ -5,3 +5,5 @@
 _site
 .pygments-cache
 _drafts
+.devcontainer/
+.devcontainer/*-sample.json
